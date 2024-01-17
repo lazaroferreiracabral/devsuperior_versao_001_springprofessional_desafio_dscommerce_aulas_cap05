@@ -2,6 +2,7 @@ package com.devsuperior.dscommerce.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -9,7 +10,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +19,8 @@ public class Role {
     @EqualsAndHashCode.Include
     private String authority;
 
-
+    @Override
+    public String getAuthority() {
+        return authority;
+    }
 }

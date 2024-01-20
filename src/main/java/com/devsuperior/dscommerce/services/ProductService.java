@@ -25,6 +25,9 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
         Product product = repository.findById(id).orElseThrow(
@@ -82,6 +85,9 @@ public class ProductService {
         for (CategoryDTO categoryDTO : dto.getCategories()) {
             Category category = new Category();
             category.setId(categoryDTO.getId());
+
+            CategoryDTO dtoCategory = categoryService.findById(categoryDTO.getId());
+            category.setName(dtoCategory.getNome());
             entity.getCategories().add(category);
         }
     }
